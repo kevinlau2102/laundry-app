@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:laundry_app/presentation/pages/signup_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -46,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: SizedBox(
-                  height:50,
+                  height: 50,
                   child: TextField(
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -63,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: SizedBox(
-                  height:50,
+                  height: 50,
                   child: TextFormField(
                       obscureText: _obscureText,
                       decoration: InputDecoration(
@@ -115,22 +117,109 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(color: Color(0xFF52B2CF), fontSize: 16),
                   ),
                   SizedBox(
-                    height:30,
+                    height: 30,
                     child: TextButton(
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                      ),
-                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SignUpPage()),
+                          );
+                        },
                         child: const Text("Sign up here",
                             style: TextStyle(
-                                color: Color(0xFFFFA928),fontSize: 16))),
+                                color: Color(0xFFFFA928), fontSize: 16))),
                   )
                 ],
-              )
+              ),
+              ClipPath(
+                  clipper: WaveClipper(),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 191,
+                        width: MediaQuery.of(context).size.width,
+                        color: const Color(0xFF52B2CF),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            const Text(
+                              "Or login with",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16),
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                    width: 50,
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle),
+                                    child: IconButton(
+                                        padding: EdgeInsets.zero,
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          FontAwesomeIcons.facebook,
+                                          color: Color(0xFF3B5998),
+                                          size: 40,
+                                        ))),
+                                Container(
+                                    width: 50,
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle),
+                                    child: IconButton(
+                                        padding: EdgeInsets.zero,
+                                        onPressed: () {},
+                                        icon: Image.asset(
+                                          'images/google-icon.png',
+                                          fit: BoxFit.fill,
+                                          width: 40,
+                                        ))),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  )),
             ],
           ),
         ],
       ),
     );
+  }
+}
+
+class WaveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.lineTo(0.0, 30);
+
+    path.quadraticBezierTo(size.width / 5, 0.0, size.width / 1.75, 50);
+
+    path.quadraticBezierTo(size.width - 60, 80, size.width, 60);
+
+    path.lineTo(size.width, size.height);
+    path.lineTo(0.0, size.height);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

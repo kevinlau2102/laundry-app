@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:laundry_app/presentation/pages/login_view.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -150,7 +151,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()),
+                        );
+                      },
                       child: const Text("Sign in",
                           style: TextStyle(
                               color: Color(0xFFFFA928), fontSize: 16))),
@@ -161,23 +168,24 @@ class _SignUpPageState extends State<SignUpPage> {
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: SizedBox(
-                height:50,
-                width:100,
+                height: 50,
+                width: 100,
                 child: ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor: const MaterialStatePropertyAll<Color>(
                             Color(0xFFFFA928)),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ))),
                     onPressed: () {},
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: const <Widget> [
+                      children: const <Widget>[
                         Text('Next'),
                         SizedBox(
-                          width:20,
+                          width: 20,
                           child: Icon(
                             Icons.keyboard_arrow_right,
                           ),

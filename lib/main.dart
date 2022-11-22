@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:laundry_app/presentation/pages/login_view.dart';
-import 'package:laundry_app/presentation/pages/signup_view.dart';
 
 void main() {
   runApp(const MyApp());

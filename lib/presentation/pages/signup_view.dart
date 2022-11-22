@@ -152,7 +152,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         padding: EdgeInsets.zero,
                       ),
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pop(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const LoginPage()),

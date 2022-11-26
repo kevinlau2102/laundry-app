@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:laundry_app/presentation/pages/home_page.dart';
 import 'package:laundry_app/presentation/pages/pages.dart';
-import 'package:laundry_app/presentation/pages/signup_view.dart';
+import 'package:laundry_app/presentation/pages/signup_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {

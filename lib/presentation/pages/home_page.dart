@@ -254,15 +254,12 @@ class _HomePageState extends State<HomePage> {
                     ],
                   )),
               Wrap(
-                alignment: WrapAlignment.spaceBetween,
                 children: const [
                   AdsWidget(
                       imageUrl: "ads1.png", title: "20% off first order!"),
                   AdsWidget(imageUrl: "ads2.png", title: "What is laundry?"),
                   AdsWidget(
                       imageUrl: "ads1.png", title: "20% off first order!"),
-                  AdsWidget(imageUrl: "ads2.png", title: "What is laundry?"),
-                                    AdsWidget(imageUrl: "ads1.png", title: "20% off first order!"),
                   AdsWidget(imageUrl: "ads2.png", title: "What is laundry?"),
                 ],
               )

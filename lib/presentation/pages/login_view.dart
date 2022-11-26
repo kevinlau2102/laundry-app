@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:laundry_app/presentation/pages/home_page.dart';
+import 'package:laundry_app/presentation/pages/pages.dart';
 import 'package:laundry_app/presentation/pages/signup_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -93,7 +95,13 @@ class _LoginPageState extends State<LoginPage> {
                 width: 165,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Pages()),
+                    );
+                  },
                   style: ButtonStyle(
                       backgroundColor: const MaterialStatePropertyAll<Color>(
                           Color(0xFFFFA928)),
@@ -138,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       Container(
-                        height: 191,
+                        height: MediaQuery.of(context).size.height / 4.2,
                         width: MediaQuery.of(context).size.width,
                         color: const Color(0xFF52B2CF),
                         child: Column(

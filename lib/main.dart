@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:laundry_app/presentation/pages/login_view.dart';
+import 'package:laundry_app/presentation/pages/login_page.dart';
 import 'package:laundry_app/presentation/widgets/ads_widget.dart';
 
 void main() {

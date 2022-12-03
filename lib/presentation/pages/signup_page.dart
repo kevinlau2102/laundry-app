@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:laundry_app/presentation/pages/login_page.dart';
+import 'package:laundry_app/presentation/pages/signup_page_2.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -179,7 +178,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                 RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ))),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUpPage2()),
+                      );
+                    },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: const <Widget>[

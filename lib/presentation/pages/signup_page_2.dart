@@ -90,7 +90,7 @@ class _SignUpPage2State extends State<SignUpPage2> {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: TextFormField(
-                    maxLines: 5,
+                    maxLines: 4,
                     decoration: InputDecoration(
                         alignLabelWithHint: true,
                         border: OutlineInputBorder(
@@ -143,21 +143,23 @@ class _SignUpPage2State extends State<SignUpPage2> {
                   ),
                 ),
                 const SizedBox(
-                  width: 10,
-                ),Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.only(right: 30),
-                    child: SizedBox(
-                      height: 50,
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            labelText: 'City',
-                            hintText: 'City'),
-                      ),
+                  height: 15,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: SizedBox(
+                    height: 50,
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                          labelText: 'Postal Code',
+                          hintText: 'Postal Code'),
                     ),
                   ),
+                ),
               ]),
             ],
           )

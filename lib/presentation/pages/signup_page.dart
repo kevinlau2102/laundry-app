@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:laundry_app/presentation/pages/login_page.dart';
 import 'package:laundry_app/presentation/pages/signup_page_2.dart';
 
+import '../../services/auth_services.dart';
+
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -11,6 +13,8 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   bool _obscureText = true;
+  TextEditingController emailController = TextEditingController(text: "");
+  TextEditingController passController = TextEditingController(text: "");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -178,7 +182,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                 RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ))),
-                    onPressed: () {
+                    onPressed: () async {
+                      await AuthServices.signIn(
+                          emailController.text, passController.text);
                       Navigator.push(
                         context,
                         MaterialPageRoute(

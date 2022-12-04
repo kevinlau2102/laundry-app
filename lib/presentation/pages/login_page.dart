@@ -3,6 +3,7 @@ import 'package:laundry_app/presentation/pages/home_page.dart';
 import 'package:laundry_app/presentation/pages/pages.dart';
 import 'package:laundry_app/presentation/pages/signup_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:laundry_app/services/auth_services.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,6 +14,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
+  TextEditingController emailController = TextEditingController(text: "");
+  TextEditingController passController = TextEditingController(text: "");
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,8 @@ class _LoginPageState extends State<LoginPage> {
       body: ListView(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height - MediaQuery.of(context).viewPadding.top,
+            height: MediaQuery.of(context).size.height -
+                MediaQuery.of(context).viewPadding.top,
             child: Stack(
               children: [
                 Column(
@@ -53,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: SizedBox(
                         height: 50,
                         child: TextField(
+                          controller: emailController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
@@ -70,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: SizedBox(
                         height: 50,
                         child: TextFormField(
+                            controller: passController,
                             obscureText: _obscureText,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -98,7 +104,9 @@ class _LoginPageState extends State<LoginPage> {
                       width: 165,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          await AuthServices.signIn(
+                              emailController.text, passController.text);
                           Navigator.push(
                             context,
                             MaterialPageRoute(

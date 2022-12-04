@@ -10,7 +10,7 @@ class OutletsServices {
           rating: 4.9,
           description: "Lorem Ipsum Dolor Sit Amet",
           imageUrl: "ads2.png",
-          address: "Jl. Surya Sumantri No. 63A Jl. Surya Sumantri No. 63A",
+          address: "Jl. Surya Sumantri No. 63",
           categories: [Category("Washing"), Category("Drying"), Category("Ironing")]),
       Outlets(
           id: 2,

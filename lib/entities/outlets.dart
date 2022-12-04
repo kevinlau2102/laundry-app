@@ -1,4 +1,3 @@
-
 import 'package:laundry_app/entities/category.dart';
 
 class Outlets {

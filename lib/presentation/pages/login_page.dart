@@ -107,6 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () async {
                           await AuthServices.signIn(
                               emailController.text, passController.text);
+                          if (!mounted) return;
                           Navigator.push(
                             context,
                             MaterialPageRoute(

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:laundry_app/presentation/pages/home_page.dart';
 import 'package:laundry_app/presentation/pages/pages.dart';
@@ -16,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passController = TextEditingController(text: "");
+  User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -105,14 +107,16 @@ class _LoginPageState extends State<LoginPage> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () async {
-                          await AuthServices.signIn(
+                          user = await AuthServices.signIn(
                               emailController.text, passController.text);
                           if (!mounted) return;
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Pages()),
-                          );
+                          if (user != null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Pages()),
+                            );
+                          }
                         },
                         style: ButtonStyle(
                             backgroundColor:

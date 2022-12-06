@@ -83,6 +83,7 @@ class _SignUpPageState extends State<SignUpPage> {
               child: SizedBox(
                 height: 50,
                 child: TextFormField(
+                  controller: emailController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0)),
@@ -100,6 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
               child: SizedBox(
                 height: 50,
                 child: TextFormField(
+                    controller: passController,
                     obscureText: _obscureText,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -183,7 +185,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           borderRadius: BorderRadius.circular(10.0),
                         ))),
                     onPressed: () async {
-                      await AuthServices.signIn(
+                      await AuthServices.signUp(
                           emailController.text, passController.text);
                       Navigator.push(
                         context,

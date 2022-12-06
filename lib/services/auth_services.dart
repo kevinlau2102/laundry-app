@@ -21,7 +21,7 @@ class AuthServices {
       final User? user = (await _auth.createUserWithEmailAndPassword(
               email: email, password: password))
           .user;
-      print(email);
+      print(user);
       return user;
     } on FirebaseAuthException catch (e) {
       print(e.message.toString());

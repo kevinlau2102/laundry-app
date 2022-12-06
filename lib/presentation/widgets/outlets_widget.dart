@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:laundry_app/colors.dart';
 import 'package:laundry_app/entities/outlets.dart';
+import 'package:laundry_app/presentation/pages/outlets_details_page.dart';
 
 class OutletsWidget extends StatelessWidget {
   final Outlets outlets;
@@ -10,7 +11,10 @@ class OutletsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print(outlets.id);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => OutletsDetailsPage(outlets: outlets,)),
+        );
       },
       child: Container(
         height: 180,

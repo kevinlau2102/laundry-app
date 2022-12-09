@@ -116,6 +116,8 @@ class _LoginPageState extends State<LoginPage> {
                               MaterialPageRoute(
                                   builder: (context) => const Pages()),
                             );
+                          } else {
+                            showNotification(context, "Invalid email or password");
                           }
                         },
                         style: ButtonStyle(
@@ -230,6 +232,11 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+  }
+
+  void showNotification(BuildContext context, String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message.toString())));
   }
 }
 

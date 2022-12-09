@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:laundry_app/bloc/pages_bloc.dart';
 import 'package:laundry_app/presentation/pages/home_page.dart';
 import 'package:laundry_app/presentation/pages/pages.dart';
 import 'package:laundry_app/presentation/pages/signup_page.dart';
@@ -102,37 +104,44 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 30,
                     ),
-                    SizedBox(
-                      width: 165,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          user = await AuthServices.signIn(
-                              emailController.text, passController.text);
-                          if (!mounted) return;
-                          if (user != null) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Pages()),
-                            );
-                          } else {
-                            showNotification(context, "Invalid email or password");
-                          }
-                        },
-                        style: ButtonStyle(
-                            backgroundColor:
-                                const MaterialStatePropertyAll<Color>(
-                                    Color(0xFFFFA928)),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ))),
-                        child: const Text(
-                          "Login",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
+                    BlocBuilder<PagesBloc, PagesState>(
+                      builder: (context, state) {
+                        return SizedBox(
+                          width: 165,
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              user = await AuthServices.signIn(
+                                  emailController.text, passController.text);
+                              if (!mounted) return;
+                              if (user != null) {
+                                context.read<PagesBloc>().add(const PagesEvent.started(0));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Pages()),
+                                );
+                              } else {
+                                showNotification(
+                                    context, "Invalid email or password");
+                              }
+                            },
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    const MaterialStatePropertyAll<Color>(
+                                        Color(0xFFFFA928)),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ))),
+                            child: const Text(
+                              "Login",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: 40),
                     Column(

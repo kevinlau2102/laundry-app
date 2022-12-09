@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:laundry_app/colors.dart';
+import 'package:laundry_app/presentation/pages/history_page.dart';
 
 import '../widgets/header.dart';
 
@@ -61,31 +62,37 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: const Text(
                   "John Doe",
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                 )),
             Container(
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: const Text(
                   "+628-221-234-567",
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 16),
                 )),
             Container(
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: const Text(
                   "johndoe@gmail.com",
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 16),
                 )),
             const SizedBox(
               height: 30,
             ),
             GestureDetector(
-              onTap: (){},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HistoryPage()),
+                );
+              },
               child: Container(
                 height: 60,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                     border: Border(
-                        top: BorderSide(width: 2, color: Colors.grey.shade300))),
+                        top:
+                            BorderSide(width: 2, color: Colors.grey.shade300))),
                 child: Row(children: [
                   Image.asset("images/history.png",
                       height: 40, color: primaryColor),
@@ -121,9 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             GestureDetector(
-              onTap: () {
-                
-              },
+              onTap: () {},
               child: Container(
                 height: 60,
                 padding: const EdgeInsets.symmetric(horizontal: 15),

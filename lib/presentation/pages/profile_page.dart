@@ -3,7 +3,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:laundry_app/colors.dart';
+import 'package:laundry_app/presentation/pages/change_address_page.dart';
 import 'package:laundry_app/presentation/pages/history_page.dart';
+import 'package:laundry_app/presentation/pages/login_page.dart';
 
 import '../widgets/header.dart';
 
@@ -107,7 +109,13 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ChangeAddressPage()),
+                );
+              },
               child: Container(
                 height: 60,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -128,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: _showDialog,
               child: Container(
                 height: 60,
                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -152,6 +160,93 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         )
       ],
+    );
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          elevation: 0,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+            ),
+            child: IntrinsicWidth(
+              child: IntrinsicHeight(
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      "Confirmation",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontFamily: "Roboto",
+                        fontSize: 18,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      "Are you sure want to log out?",
+                      style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(border: Border(
+                              top:BorderSide(width: 1, color: Colors.grey.shade300),
+                        bottom:
+                            BorderSide(width: 1, color: Colors.grey.shade300))),
+                            child: TextButton(
+                              onPressed: () {
+                               Navigator.of(context).popUntil((route) => route.isFirst);
+                              },
+                              child: const Text("Log out now", style: TextStyle(color: primaryColor),),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const LoginPage()),
+                                );
+                            },
+                            child: const Text("No, I'll stay", style: TextStyle(color: tertiaryColor),),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

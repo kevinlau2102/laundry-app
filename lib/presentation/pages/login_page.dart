@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:laundry_app/bloc/pages_bloc.dart';
 import 'package:laundry_app/presentation/pages/home_page.dart';
 import 'package:laundry_app/presentation/pages/pages.dart';
@@ -115,12 +116,13 @@ class _LoginPageState extends State<LoginPage> {
                                   emailController.text, passController.text);
                               if (!mounted) return;
                               if (user != null) {
-                                context.read<PagesBloc>().add(const PagesEvent.started(0));
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Pages()),
-                                );
+                                // context.read<PagesBloc>().add(const PagesEvent.started(0));
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) => Pages()),
+                                // );
+                                context.goNamed('home');
                               } else {
                                 showNotification(
                                     context, "Invalid email or password");

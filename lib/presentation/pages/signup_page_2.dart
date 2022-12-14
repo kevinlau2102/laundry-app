@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
 import 'package:laundry_app/presentation/pages/login_page.dart';
 import 'package:laundry_app/presentation/pages/pages.dart';
 
@@ -64,7 +65,8 @@ class _SignUpPage2State extends State<SignUpPage2> {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
+                          context.goNamed('signup');
                         },
                         icon: const Icon(Icons.arrow_back_ios_new_rounded),
                       ))),
@@ -134,16 +136,16 @@ class _SignUpPage2State extends State<SignUpPage2> {
                         hint: const Text("Select Province"),
                         items: provinsi
                             .map((item) => DropdownMenuItem<String>(
-                              enabled: item != "Select Province",
+                                  enabled: item != "Select Province",
                                   value: item,
                                   child: Text(
                                     item,
                                     style: TextStyle(
-                                      fontSize: 14,
-                                      color: item == "Select Province" ? Colors.black26 : Colors.black
-                                    ),
+                                        fontSize: 14,
+                                        color: item == "Select Province"
+                                            ? Colors.black26
+                                            : Colors.black),
                                     overflow: TextOverflow.ellipsis,
-                                    
                                   ),
                                 ))
                             .toList(),
@@ -205,7 +207,8 @@ class _SignUpPage2State extends State<SignUpPage2> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      // Navigator.of(context).popUntil((route) => route.isFirst);
+                      context.goNamed('home');
                     },
                     style: ButtonStyle(
                         backgroundColor: const MaterialStatePropertyAll<Color>(
@@ -221,7 +224,9 @@ class _SignUpPage2State extends State<SignUpPage2> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 15,),
+                const SizedBox(
+                  height: 15,
+                ),
                 SizedBox(
                   height: 30,
                   child: TextButton(
@@ -229,7 +234,9 @@ class _SignUpPage2State extends State<SignUpPage2> {
                         padding: EdgeInsets.zero,
                       ),
                       onPressed: () {
-                        Navigator.of(context).popUntil((route) => route.isFirst);
+                        // Navigator.of(context)
+                        //     .popUntil((route) => route.isFirst);
+                        context.goNamed('home');
                       },
                       child: const Text("Skip for now",
                           style: TextStyle(

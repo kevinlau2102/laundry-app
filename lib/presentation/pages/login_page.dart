@@ -116,7 +116,9 @@ class _LoginPageState extends State<LoginPage> {
                                   emailController.text, passController.text);
                               if (!mounted) return;
                               if (user != null) {
-                                // context.read<PagesBloc>().add(const PagesEvent.started(0));
+                                context
+                                    .read<PagesBloc>()
+                                    .add(const PagesEvent.started(0));
                                 // Navigator.push(
                                 //   context,
                                 //   MaterialPageRoute(
@@ -160,11 +162,12 @@ class _LoginPageState extends State<LoginPage> {
                                 padding: EdgeInsets.zero,
                               ),
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const SignUpPage()),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) => const SignUpPage()),
+                                // );
+                                context.goNamed('signup');
                               },
                               child: const Text("Sign up here",
                                   style: TextStyle(

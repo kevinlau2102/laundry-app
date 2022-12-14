@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:laundry_app/presentation/pages/login_page.dart';
 import 'package:laundry_app/presentation/pages/signup_page_2.dart';
 
@@ -157,11 +158,12 @@ class _SignUpPageState extends State<SignUpPage> {
                         padding: EdgeInsets.zero,
                       ),
                       onPressed: () {
-                        Navigator.pop(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginPage()),
-                        );
+                        // Navigator.pop(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => const LoginPage()),
+                        // );
+                        context.goNamed('login');
                       },
                       child: const Text("Sign in",
                           style: TextStyle(
@@ -187,11 +189,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     onPressed: () async {
                       await AuthServices.signUp(
                           emailController.text, passController.text);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignUpPage2()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => const SignUpPage2()),
+                      // );
+                      context.goNamed('signup2');
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,

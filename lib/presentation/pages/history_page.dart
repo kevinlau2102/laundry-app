@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:laundry_app/presentation/widgets/header.dart';
 import 'package:laundry_app/presentation/widgets/history_outlets_widget.dart';
@@ -33,7 +34,8 @@ class HistoryPage extends StatelessWidget {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
+                          context.goNamed('profile');
                         },
                       ),
                     ),
@@ -54,8 +56,8 @@ class HistoryPage extends StatelessWidget {
             ),
             Flexible(
                 child: ListView(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-              children:OrderServices()
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              children: OrderServices()
                   .getOrders()
                   .map((e) => HistoryOutletsWidget(order: e))
                   .toList(),

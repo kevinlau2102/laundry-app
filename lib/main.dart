@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:laundry_app/bloc/pages_bloc.dart';
+import 'package:laundry_app/presentation/pages/change_address_page.dart';
 import 'package:laundry_app/presentation/pages/favorite_page.dart';
 import 'package:laundry_app/presentation/pages/history_page.dart';
 import 'package:laundry_app/presentation/pages/home_page.dart';
@@ -88,7 +89,7 @@ class MyApp extends StatelessWidget {
               path: 'change_address',
               name: 'change_address',
               builder: (context, state) {
-                return const HistoryPage();
+                return const ChangeAddressPage();
               },
             ),
           ],

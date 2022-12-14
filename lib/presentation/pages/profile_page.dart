@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:laundry_app/colors.dart';
 import 'package:laundry_app/presentation/pages/change_address_page.dart';
 import 'package:laundry_app/presentation/pages/history_page.dart';
 import 'package:laundry_app/presentation/pages/login_page.dart';
+import 'package:laundry_app/services/auth_services.dart';
 
 import '../widgets/header.dart';
 
@@ -83,10 +85,11 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HistoryPage()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => const HistoryPage()),
+                // );
+                context.goNamed('history');
               },
               child: Container(
                 height: 60,
@@ -110,11 +113,12 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChangeAddressPage()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                // builder: (context) => const ChangeAddressPage()),
+                // );
+                context.goNamed('change_address');
               },
               child: Container(
                 height: 60,
@@ -212,15 +216,24 @@ class _ProfilePageState extends State<ProfilePage> {
                           alignment: Alignment.bottomCenter,
                           child: Container(
                             width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(border: Border(
-                              top:BorderSide(width: 1, color: Colors.grey.shade300),
-                        bottom:
-                            BorderSide(width: 1, color: Colors.grey.shade300))),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    top: BorderSide(
+                                        width: 1, color: Colors.grey.shade300),
+                                    bottom: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey.shade300))),
                             child: TextButton(
-                              onPressed: () {
-                               Navigator.of(context).popUntil((route) => route.isFirst);
+                              onPressed: () async {
+                                // Navigator.of(context)
+                                //     .popUntil((route) => route.isFirst);
+                                await AuthServices.signOut();
+                                context.goNamed('login');
                               },
-                              child: const Text("Log out now", style: TextStyle(color: primaryColor),),
+                              child: const Text(
+                                "Log out now",
+                                style: TextStyle(color: primaryColor),
+                              ),
                             ),
                           ),
                         ),
@@ -230,12 +243,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             onPressed: () {
                               Navigator.of(context).pop();
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const LoginPage()),
-                                );
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginPage()),
+                              );
                             },
-                            child: const Text("No, I'll stay", style: TextStyle(color: tertiaryColor),),
+                            child: const Text(
+                              "No, I'll stay",
+                              style: TextStyle(color: tertiaryColor),
+                            ),
                           ),
                         ),
                       ],

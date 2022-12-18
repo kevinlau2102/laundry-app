@@ -65,7 +65,7 @@ String? selectedProvinsi;
                 Container(
                   height: 200,
                   margin: const EdgeInsets.only(top: 100),
-                  child: GoogleMapsWidget(),
+                  child: const GoogleMapsWidget(),
                 ),
                 const Header(),
                 Row(
@@ -224,7 +224,7 @@ String? selectedProvinsi;
                   height: 20,
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 100),
+                  padding: const EdgeInsets.symmetric(horizontal: 100),
                   width: 50,
                   height: 50,
                   child: ElevatedButton(

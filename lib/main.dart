@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:laundry_app/bloc/pages_bloc.dart';
+import 'package:laundry_app/presentation/pages/ads_page.dart';
 import 'package:laundry_app/presentation/pages/change_address_page.dart';
 import 'package:laundry_app/presentation/pages/favorite_page.dart';
 import 'package:laundry_app/presentation/pages/history_page.dart';
@@ -58,6 +60,13 @@ class MyApp extends StatelessWidget {
       },
       routes: [
         GoRoute(
+          path: 'ads',
+          name: 'ads',
+          builder: (context, state) {
+            return const AdsPage();
+          },
+        ),
+        GoRoute(
           path: 'search',
           name: 'search',
           builder: (context, state) {
@@ -96,13 +105,13 @@ class MyApp extends StatelessWidget {
         ),
       ],
     ),
-  ], initialLocation: '/login');
+  ], initialLocation: FirebaseAuth.instance.currentUser == null ? '/login' : '/home');
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => PagesBloc(),
+      create: (context) => PagesBloc()..add(const PagesEvent.started(0)),
       // child: const MaterialApp(
       //   title: 'Flutter Demo',
       //   debugShowCheckedModeBanner: false,

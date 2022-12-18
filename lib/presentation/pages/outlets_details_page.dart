@@ -3,7 +3,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:laundry_app/colors.dart';
 import 'package:laundry_app/entities/outlets.dart';
+import 'package:laundry_app/presentation/pages/order_page.dart';
 import 'package:laundry_app/presentation/widgets/category_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OutletsDetailsPage extends StatefulWidget {
   final Outlets outlets;
@@ -178,29 +180,51 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                 children: [
                   Row(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(width: 1, color: accentColor),
-                        ),
-                        child: const Icon(
-                          Icons.call_rounded,
-                          color: accentColor,
-                          size: 30,
+                      GestureDetector(
+                        onTap: () async {
+                          final call = Uri.parse('tel:+6289512345678');
+                          if (await canLaunchUrl(call)) {
+                            launchUrl(call);
+                          } else {
+                            throw 'Could not launch $call';
+                          }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(width: 1, color: accentColor),
+                          ),
+                          child: const Icon(
+                            Icons.call_rounded,
+                            color: accentColor,
+                            size: 30,
+                          ),
                         ),
                       ),
-                      const SizedBox(width: 20,),
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(width: 1, color: accentColor),
-                        ),
-                        child: const Icon(
-                          Icons.message_rounded,
-                          color: accentColor,
-                          size: 30,
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          final sms = Uri.parse('sms:+6289512345678?body=hello%20there');
+                          if (await canLaunchUrl(sms)) {
+                            launchUrl(sms);
+                          } else {
+                            throw 'Could not launch $sms';
+                          }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(width: 1, color: accentColor),
+                          ),
+                          child: const Icon(
+                            Icons.message_rounded,
+                            color: accentColor,
+                            size: 30,
+                          ),
                         ),
                       ),
                     ],
@@ -209,7 +233,13 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                     width: 165,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OrderPage(outlets:widget.outlets)),
+                        );
+                      },
                       style: ButtonStyle(
                           backgroundColor:
                               const MaterialStatePropertyAll<Color>(

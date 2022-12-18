@@ -228,6 +228,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 // Navigator.of(context)
                                 //     .popUntil((route) => route.isFirst);
                                 await AuthServices.signOut();
+                                if (!mounted) return;
                                 context.goNamed('login');
                               },
                               child: const Text(

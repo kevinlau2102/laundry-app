@@ -90,9 +90,9 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: const Text(
+                    child: Text(
                       "On-going order",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           fontWeight: FontWeight.bold,
                           color: primaryColor,
                           fontSize: 20),

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:laundry_app/colors.dart';
 import 'package:laundry_app/entities/order.dart';
 import 'package:laundry_app/entities/outlets.dart';
+import 'package:laundry_app/presentation/pages/completed_order_page.dart';
+import 'package:laundry_app/presentation/pages/ongoing_order_page.dart';
 
 class HistoryOutletsWidget extends StatelessWidget {
   final Order order;
@@ -12,7 +14,10 @@ class HistoryOutletsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print(order.id);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => order.status == "Done" ? CompletedOrderPage(order: order,) : OngoingOrderPage(order: order)),
+        );
       },
       child: Container(
         height: 100,
@@ -44,10 +49,10 @@ class HistoryOutletsWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 12),
                             child: Text(
-                              order.status == true ? "Completed" : "On-going",
+                              order.status == "Done" ? "Completed" : "On-going",
                               style: TextStyle(
                                 fontSize: 12,
-                                color: order.status == true
+                                color: order.status == "Done"
                                     ? Colors.green
                                     : Colors.red,
                               ),
@@ -56,7 +61,7 @@ class HistoryOutletsWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    order.status == true
+                    order.status == "Done"
                         ? Container(
                           height: 15,
                             padding: const EdgeInsets.symmetric(horizontal: 8),

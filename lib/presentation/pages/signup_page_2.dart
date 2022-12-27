@@ -65,8 +65,8 @@ class _SignUpPage2State extends State<SignUpPage2> {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: IconButton(
                         onPressed: () {
-                          // Navigator.pop(context);
-                          context.goNamed('signup');
+                          Navigator.pop(context);
+                          // context.goNamed('signup');
                         },
                         icon: const Icon(Icons.arrow_back_ios_new_rounded),
                       ))),

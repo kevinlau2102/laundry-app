@@ -34,8 +34,8 @@ class HistoryPage extends StatelessWidget {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          // Navigator.pop(context);
-                          context.goNamed('profile');
+                          Navigator.pop(context);
+                          // context.goNamed('profile');
                         },
                       ),
                     ),

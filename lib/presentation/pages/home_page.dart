@@ -63,16 +63,17 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                           Center(
-                              child: IconButton(
-                            onPressed: () => context
-                                .read<PagesBloc>()
-                                .add(const PagesEvent.started(3)),
-                            icon: const Icon(
-                              Icons.account_circle,
-                              color: Colors.white,
-                              size: 50,
+                            child: IconButton(
+                              onPressed: () => context
+                                  .read<PagesBloc>()
+                                  .add(const PagesEvent.started(3)),
+                              icon: const Icon(
+                                Icons.account_circle,
+                                color: Colors.white,
+                                size: 50,
+                              ),
                             ),
-                          ))
+                          ),
                         ],
                       ),
                     );
@@ -102,54 +103,57 @@ class _HomePageState extends State<HomePage> {
                     height: 20,
                   ),
                   Container(
-                      alignment: Alignment.topCenter,
-                      height: 165,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: primaryColor)),
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: const Icon(
-                              Icons.local_laundry_service,
-                              size: 50,
-                              color: secondaryColor,
+                    alignment: Alignment.topCenter,
+                    height: 165,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: primaryColor)),
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: const Icon(
+                            Icons.local_laundry_service,
+                            size: 50,
+                            color: secondaryColor,
+                          ),
+                        ),
+                        const Text(
+                          "There is no on-going order",
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: tertiaryColor),
+                        ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          height: 40,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              context
+                                  .read<PagesBloc>()
+                                  .add(const PagesEvent.started(1));
+                            },
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    const MaterialStatePropertyAll<Color>(
+                                        accentColor),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ))),
+                            child: const Text(
+                              "Find Outlets",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          const Text(
-                            "There is no on-going order",
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: tertiaryColor),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.5,
-                            height: 40,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                context.read<PagesBloc>().add(const PagesEvent.started(1));
-                              },
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      const MaterialStatePropertyAll<Color>(
-                                          accentColor),
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ))),
-                              child: const Text(
-                                "Find Outlets",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )),
+                        ),
+                      ],
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   Container(
                     alignment: Alignment.centerLeft,
@@ -165,108 +169,111 @@ class _HomePageState extends State<HomePage> {
                     height: 20,
                   ),
                   Container(
-                      alignment: Alignment.center,
-                      height: 165,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: primaryColor)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: secondaryColor,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: SizedBox(
-                              height: 120,
-                              width: 120,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                      top: 35,
-                                      right: -30,
-                                      child: Transform.rotate(
-                                          angle: -10 * pi / 180,
-                                          child: Image.asset(
-                                            "images/shirt.png",
-                                            width: 90,
-                                          ))),
-                                  Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 15),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: const [
-                                          Text(
-                                            "Wash",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            "and",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            "Dry Clean",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      )),
-                                ],
-                              ),
+                    alignment: Alignment.center,
+                    height: 165,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: primaryColor)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: secondaryColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: SizedBox(
+                            height: 120,
+                            width: 120,
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                    top: 35,
+                                    right: -30,
+                                    child: Transform.rotate(
+                                        angle: -10 * pi / 180,
+                                        child: Image.asset(
+                                          "images/shirt.png",
+                                          width: 90,
+                                        ))),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 15),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: const [
+                                      Text(
+                                        "Wash",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "and",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Dry Clean",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: tertiaryColor,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: SizedBox(
-                              height: 120,
-                              width: 120,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                      top: 35,
-                                      right: -10,
-                                      child: Image.asset(
-                                        "images/setrika.png",
-                                        width: 100,
-                                      )),
-                                  Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 15),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: const [
-                                          Text(
-                                            "Full Service",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      )),
-                                ],
-                              ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: tertiaryColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: SizedBox(
+                            height: 120,
+                            width: 120,
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                    top: 35,
+                                    right: -10,
+                                    child: Image.asset(
+                                      "images/setrika.png",
+                                      width: 100,
+                                    )),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 15),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: const [
+                                      Text(
+                                        "Full Service",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      )),
+                        ),
+                      ],
+                    ),
+                  ),
                   Wrap(
                     children: const [
                       AdsWidget(
@@ -277,8 +284,9 @@ class _HomePageState extends State<HomePage> {
                           imageUrl: "ads1.png", title: "20% off first order!"),
                       AdsWidget(
                           imageUrl: "ads2.png", title: "What is laundry?"),
+                      AdsWidget(imageUrl: "ads1.png", title: "TESTING?"),
                     ],
-                  )
+                  ),
                 ],
               ),
             );

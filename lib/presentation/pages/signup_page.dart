@@ -188,13 +188,13 @@ class _SignUpPageState extends State<SignUpPage> {
                         ))),
                     onPressed: () async {
                       await AuthServices.signUp(
-                          emailController.text, passController.text);
+                              emailController.text, passController.text)
+                          .then((value) => context.goNamed('signup2'));
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(
                       //       builder: (context) => const SignUpPage2()),
                       // );
-                      context.goNamed('signup2');
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,

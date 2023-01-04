@@ -43,10 +43,12 @@ class MyApp extends StatelessWidget {
               },
               routes: [
                 GoRoute(
-                  path: 'signup2',
+                  path: 'signup2/:uid',
                   name: 'signup2',
                   builder: (context, state) {
-                    return const SignUpPage2();
+                    return SignUpPage2(
+                      uid: state.params['uid']!,
+                    );
                   },
                 ),
               ],

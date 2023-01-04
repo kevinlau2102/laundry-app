@@ -1,4 +1,3 @@
-import 'package:laundry_app/entities/category.dart';
 import 'package:laundry_app/entities/outlets.dart';
 
 class OutletsServices {
@@ -11,7 +10,7 @@ class OutletsServices {
           description: "Lorem Ipsum Dolor Sit Amet",
           imageUrl: "ads2.png",
           address: "Jl. Surya Sumantri No. 63",
-          categories: [Category("Washing"), Category("Drying"), Category("Ironing")]),
+          categories:"Washing, Drying, Ironing"),
       Outlets(
           id: 2,
           name: "Laundry Bersih 2",
@@ -19,7 +18,7 @@ class OutletsServices {
           description: "Lorem Ipsum Dolor Sit Amet",
           imageUrl: "ads2.png",
           address: "Jl. Surya Sumantri No. 63A",
-          categories: [Category("Washing"), Category("Drying")]),
+          categories: "Washing, Drying"),
       Outlets(
           id: 3,
           name: "Laundry Bersih 3",
@@ -27,7 +26,7 @@ class OutletsServices {
           description: "Lorem Ipsum Dolor Sit Amet",
           imageUrl: "ads2.png",
           address: "Jl. Surya Sumantri No. 63A",
-          categories: [Category("Washing"), Category("Drying")]),
+          categories: "Washing, Drying"),
       Outlets(
           id: 4,
           name: "Laundry Bersih 4",
@@ -35,7 +34,7 @@ class OutletsServices {
           description: "Lorem Ipsum Dolor Sit Amet",
           imageUrl: "ads2.png",
           address: "Jl. Surya Sumantri No. 63A",
-          categories: [Category("Washing"), Category("Drying"), Category("Ironing")]),
+          categories:"Washing, Drying, Ironing"),
     ];
   }
 }

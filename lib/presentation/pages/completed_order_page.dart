@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:laundry_app/colors.dart';
@@ -135,7 +132,7 @@ class CompletedOrderPage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                order.status,
+                                order.status.toString(),
                                 style: GoogleFonts.inter(
                                     fontSize: 14, fontWeight: FontWeight.w600),
                               ),
@@ -168,7 +165,7 @@ class CompletedOrderPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    order.outlets.name,
+                                    order.outlets!.name.toString(),
                                     style: GoogleFonts.inter(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600),
@@ -177,7 +174,7 @@ class CompletedOrderPage extends StatelessWidget {
                                     height: 5,
                                   ),
                                   Text(
-                                    order.outlets.address,
+                                    order.outlets!.address,
                                     style: GoogleFonts.inter(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600),
@@ -228,7 +225,7 @@ class CompletedOrderPage extends StatelessWidget {
                                     height: 5,
                                   ),
                                   Text(
-                                    order.payment,
+                                    order.payment.toString(),
                                     style: GoogleFonts.inter(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600),
@@ -260,7 +257,7 @@ class CompletedOrderPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 5),
                             child: Text(
-                              "Rated: ${order.rated.toStringAsFixed(0)}",
+                              "Rated: ${order.rated!.toStringAsFixed(0)}",
                               style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
                             ),
                           ),

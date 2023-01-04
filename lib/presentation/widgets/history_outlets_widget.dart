@@ -28,7 +28,7 @@ class HistoryOutletsWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0)),
         child: Row(
           children: <Widget>[
-            Image.asset('images/${order.outlets.imageUrl}',
+            Image.asset('images/${order.outlets!.imageUrl}',
                 height: 100, width: 100, fit: BoxFit.fitHeight),
             Expanded(
               child: Column(
@@ -41,7 +41,7 @@ class HistoryOutletsWidget extends StatelessWidget {
                         children: [
                           Container(
                             padding: const EdgeInsets.only(top: 10),
-                            child: Text(order.outlets.name,
+                            child: Text(order.outlets!.name,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                     color: primaryColor, fontSize: 12)),
@@ -71,7 +71,7 @@ class HistoryOutletsWidget extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 3),
                                   child: Text(
-                                    "Rated: ${order.rated.toStringAsFixed(0)}",
+                                    "Rated: ${order.rated!.toStringAsFixed(0)}",
                                     style: const TextStyle(fontSize: 10),
                                   ),
                                 ),
@@ -97,7 +97,7 @@ class HistoryOutletsWidget extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                             child: Text(
-                              order.outlets.address,
+                              order.outlets!.address,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 fontSize: 10,
@@ -113,7 +113,7 @@ class HistoryOutletsWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10),
                       child: Text(
-                        (order.orderTime),
+                        (order.orderTime.toString()),
                         style: const TextStyle(
                             color: Colors.black87, fontSize: 10),
                       ),

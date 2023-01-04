@@ -159,7 +159,7 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                           height: 5,
                         ),
                         Row(
-                          children: widget.outlets.categories
+                          children: widget.outlets.categories.split(", ")
                               .map((e) => CategoryWidget(category: e))
                               .toList(),
                         )

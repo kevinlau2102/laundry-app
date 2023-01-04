@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:laundry_app/colors.dart';
-import 'package:laundry_app/entities/category.dart';
 
 class CategoryWidget extends StatelessWidget {
-  final Category category;
+  final String category;
   const CategoryWidget({super.key, required this.category});
 
   @override
@@ -16,7 +15,7 @@ class CategoryWidget extends StatelessWidget {
           border: Border.all(color: primaryColor)),
       child: Center(
           child: Text(
-        category.name,
+        category,
         style: const TextStyle(color: primaryColor, fontWeight: FontWeight.w600, fontSize: 14),
       )),
     );

@@ -26,67 +26,61 @@ void main() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final GoRouter router = GoRouter(routes: [
-    GoRoute(
-      path: '/login',
-      name: 'login',
-      builder: (context, state) {
-        return const LoginPage();
-      },
+  final GoRouter router = GoRouter(
       routes: [
         GoRoute(
-          path: 'signup',
-          name: 'signup',
+          path: '/login',
+          name: 'login',
           builder: (context, state) {
-            return const SignUpPage();
+            return const LoginPage();
           },
           routes: [
             GoRoute(
-              path: 'signup2',
-              name: 'signup2',
+              path: 'signup',
+              name: 'signup',
               builder: (context, state) {
-                return const SignUpPage2();
+                return const SignUpPage();
               },
+              routes: [
+                GoRoute(
+                  path: 'signup2',
+                  name: 'signup2',
+                  builder: (context, state) {
+                    return const SignUpPage2();
+                  },
+                ),
+              ],
             ),
           ],
         ),
-      ],
-    ),
-    GoRoute(
-      path: '/home',
-      name: 'home',
-      builder: (context, state) {
-        return Pages();
-      },
-      routes: [
         GoRoute(
-          path: 'ads',
-          name: 'ads',
+          path: '/home',
+          name: 'home',
           builder: (context, state) {
-            return const AdsPage();
-          },
-        ),
-        GoRoute(
-          path: 'search',
-          name: 'search',
-          builder: (context, state) {
-            return const SearchPage();
-          },
-        ),
-        GoRoute(
-          path: 'favorite',
-          name: 'favorite',
-          builder: (context, state) {
-            return const FavoritePage();
-          },
-        ),
-        GoRoute(
-          path: 'profile',
-          name: 'profile',
-          builder: (context, state) {
-            return const ProfilePage();
+            return Pages();
           },
           routes: [
+            GoRoute(
+              path: 'ads',
+              name: 'ads',
+              builder: (context, state) {
+                return const AdsPage();
+              },
+            ),
+            GoRoute(
+              path: 'search',
+              name: 'search',
+              builder: (context, state) {
+                return const SearchPage();
+              },
+            ),
+            GoRoute(
+              path: 'favorite',
+              name: 'favorite',
+              builder: (context, state) {
+                return const FavoritePage();
+              },
+            ),
             GoRoute(
               path: 'history',
               name: 'history',
@@ -101,11 +95,12 @@ class MyApp extends StatelessWidget {
                 return const ChangeAddressPage();
               },
             ),
+           
           ],
         ),
       ],
-    ),
-  ], initialLocation: FirebaseAuth.instance.currentUser == null ? '/login' : '/home');
+      initialLocation:
+          FirebaseAuth.instance.currentUser == null ? '/login' : '/home');
 
   // This widget is the root of your application.
   @override

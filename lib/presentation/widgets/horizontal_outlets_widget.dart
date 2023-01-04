@@ -93,8 +93,8 @@ class HorizontalOutletsWidget extends StatelessWidget {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      child: Text((outlets.categories)
-                          .map((e) => e.name)
+                      child: Text((outlets.categories).split(", ")
+                          .map((e) => e)
                           .toList()
                           .join(", "), style: const TextStyle(color: Colors.black87, fontSize: 10),),
                     ),

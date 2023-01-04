@@ -4,8 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:laundry_app/bloc/pages_bloc.dart';
 import 'package:laundry_app/colors.dart';
+import 'package:laundry_app/entities/order.dart' as order2;
+import 'package:laundry_app/presentation/pages/completed_order_page.dart';
+import 'package:laundry_app/presentation/pages/ongoing_order_page.dart';
 import 'package:laundry_app/presentation/widgets/ads_widget.dart';
 import 'package:laundry_app/entities/user.dart' as user2;
 
@@ -20,7 +24,11 @@ class _HomePageState extends State<HomePage> {
   late user2.User userEnt;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   late CollectionReference usersCol = firestore.collection("user");
-
+  late CollectionReference orders = firestore.collection('orders');
+  late Query query = orders
+      .where('user_id', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+      .where('rated', isEqualTo: 0)
+      .orderBy('order_time', descending: true);
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -126,58 +134,360 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    alignment: Alignment.topCenter,
-                    height: 165,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: primaryColor)),
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: const Icon(
-                            Icons.local_laundry_service,
-                            size: 50,
-                            color: secondaryColor,
-                          ),
-                        ),
-                        const Text(
-                          "There is no on-going order",
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: tertiaryColor),
-                        ),
-                        const SizedBox(height: 10),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 1.5,
-                          height: 40,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .read<PagesBloc>()
-                                  .add(const PagesEvent.started(1));
-                            },
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    const MaterialStatePropertyAll<Color>(
-                                        accentColor),
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ))),
-                            child: const Text(
-                              "Find Outlets",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  StreamBuilder<QuerySnapshot>(
+                      stream: query.snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data!.size == 0) {
+                            return Container(
+                              alignment: Alignment.topCenter,
+                              height: 180,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: primaryColor)),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
+                                    child: const Icon(
+                                      Icons.local_laundry_service,
+                                      size: 50,
+                                      color: secondaryColor,
+                                    ),
+                                  ),
+                                  const Text(
+                                    "There is no on-going order",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: tertiaryColor),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.5,
+                                    height: 40,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        context
+                                            .read<PagesBloc>()
+                                            .add(const PagesEvent.started(1));
+                                      },
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              const MaterialStatePropertyAll<
+                                                  Color>(accentColor),
+                                          shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ))),
+                                      child: const Text(
+                                        "Find Outlets",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          } else {
+                            return Column(
+                              children: snapshot.data!.docs.map((e) {
+                                order2.Order order = order2.Order.fromJson(
+                                    e.data() as Map<String, dynamic>);
+                                return Container(
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  alignment: Alignment.topCenter,
+                                  height: 190,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 20, horizontal: 13),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: primaryColor)),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        width: 1,
+                                                        color: secondaryColor),
+                                                    shape: BoxShape.circle,
+                                                    color: secondaryColor),
+                                                padding:
+                                                    const EdgeInsets.all(8),
+                                                child: const Icon(
+                                                  Icons
+                                                      .local_laundry_service_outlined,
+                                                  size: 30,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              const Text("Washing", style: TextStyle(fontWeight: FontWeight.w600, color: secondaryColor),)
+                                            ],
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                bottom: 15),
+                                            width: 30,
+                                            height: 3,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                color: secondaryColor),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          order.status == "Drying" ||
+                                                  order.status == "Ironing" ||
+                                                  order.status == "Done"
+                                              ? Column(
+                                                  children: [
+                                                    Container(
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color:
+                                                                  secondaryColor),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8),
+                                                      child: const Icon(
+                                                        Icons
+                                                            .dry_cleaning_outlined,
+                                                        size: 30,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                    const Text("Drying", style: TextStyle(fontWeight: FontWeight.w600, color: secondaryColor),)
+                                                  ],
+                                                )
+                                              : Column(
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        border: Border.all(
+                                                            width: 1,
+                                                            color:
+                                                                tertiaryColor),
+                                                      ),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8),
+                                                      child: const Icon(
+                                                        Icons
+                                                            .dry_cleaning_outlined,
+                                                        size: 30,
+                                                        color: tertiaryColor,
+                                                      ),
+                                                    ),
+                                                    const Text("Drying",style: TextStyle(fontWeight: FontWeight.w600, color: tertiaryColor))
+                                                  ],
+                                                ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                bottom: 15),
+                                            width: 30,
+                                            height: 3,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                color: order.status ==
+                                                            "Drying" ||
+                                                        order.status ==
+                                                            "Ironing" ||
+                                                        order.status == "Done"
+                                                    ? secondaryColor
+                                                    : Colors.grey.shade300),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          order.status == "Ironing" ||
+                                                  order.status == "Done"
+                                              ? Column(
+                                                  children: [
+                                                    Container(
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color:
+                                                                  secondaryColor),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8),
+                                                      child: const Icon(
+                                                        Icons.iron_outlined,
+                                                        size: 30,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                    const Text("Ironing", style: TextStyle(fontWeight: FontWeight.w600, color: secondaryColor))
+                                                  ],
+                                                )
+                                              : Column(
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          border: Border.all(
+                                                              color:
+                                                                  tertiaryColor,
+                                                              width: 1)),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8),
+                                                      child: const Icon(
+                                                        Icons.iron_outlined,
+                                                        size: 30,
+                                                        color: tertiaryColor,
+                                                      ),
+                                                    ),
+                                                    const Text("Ironing", style: TextStyle(fontWeight: FontWeight.w600, color: tertiaryColor))
+                                                  ],
+                                                ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                bottom: 15),
+                                            width: 30,
+                                            height: 3,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                color: order.status ==
+                                                            "Ironing" ||
+                                                        order.status == "Done"
+                                                    ? secondaryColor
+                                                    : Colors.grey.shade300),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          order.status == "Done"
+                                              ? Column(
+                                                  children: [
+                                                    Container(
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color:
+                                                                  secondaryColor),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8),
+                                                      child: const Icon(
+                                                        Icons.done_rounded,
+                                                        size: 30,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                    const Text("Done", style: TextStyle(fontWeight: FontWeight.w600, color: secondaryColor))
+                                                  ],
+                                                )
+                                              : Column(
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          border: Border.all(
+                                                              color:
+                                                                  tertiaryColor,
+                                                              width: 1)),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8),
+                                                      child: const Icon(
+                                                        Icons.done_rounded,
+                                                        size: 30,
+                                                        color: tertiaryColor,
+                                                      ),
+                                                    ),
+                                                    const Text("Done",style: TextStyle(fontWeight: FontWeight.w600, color: tertiaryColor))
+                                                  ],
+                                                ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10,),
+                                      Container(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "Order Date: ${DateFormat('EEE, d MMMM y, H:mm').format(order.orderTime!.toDate())}",
+                                          style: GoogleFonts.inter(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600, color: tertiaryColor),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 15),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                1.5,
+                                        height: 40,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      order.status == "Done"
+                                                          ? CompletedOrderPage(
+                                                              order: order,
+                                                            )
+                                                          : OngoingOrderPage(
+                                                              order: order)),
+                                            );
+                                          },
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  const MaterialStatePropertyAll<
+                                                      Color>(accentColor),
+                                              shape: MaterialStateProperty.all<
+                                                      RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ))),
+                                          child: Text(
+                                            order.status == "Done"
+                                                ? "Give Rating"
+                                                : "Details",
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                            );
+                          }
+                        } else {
+                          return const SizedBox();
+                        }
+                      }),
                   const SizedBox(height: 20),
                   Container(
                     alignment: Alignment.centerLeft,

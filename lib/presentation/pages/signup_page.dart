@@ -18,7 +18,6 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController fNameController = TextEditingController(text: "");
   TextEditingController lNameController = TextEditingController(text: "");
   TextEditingController phoneController = TextEditingController(text: "");
-  String? name;
   String temp = "Temp Data";
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -198,8 +197,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           borderRadius: BorderRadius.circular(10.0),
                         ))),
                     onPressed: () async {
-                      name =
-                          ("${fNameController.text.toString().trim()} ${lNameController.text.toString().trim()}");
+                      
                       try {
                         final User? userEnt =
                             (await _auth.createUserWithEmailAndPassword(
@@ -207,7 +205,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     password: (passController.text.trim())))
                                 .user;
                         if (userEnt != null) {
-                          createData(name!, emailController.text,
+                          createData(emailController.text,
                               phoneController.text, userEnt, temp);
                         }
                       } on FirebaseAuthException catch (e) {
@@ -252,9 +250,10 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void createData(
-      String name, String email, String phone, User? user, String tempData) {
+     String email, String phone, User? user, String tempData) {
     userCol.doc(user?.uid).set({
-      "name": name.trim(),
+      "first_name": fNameController.text.trim(),
+      "last_name": lNameController.text.trim(),
       "email": email.trim(),
       "phone": phone.trim(),
       "address": tempData,

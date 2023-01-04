@@ -21,7 +21,7 @@ class OngoingOrderPage extends StatelessWidget {
                 Container(
                   height: 200,
                   margin: const EdgeInsets.only(top: 100),
-                  child: const GoogleMapsWidget(),
+                  child: GoogleMapsWidget(latitude: order.outlets!.latitude!, longitude: order.outlets!.longitude!,),
                 ),
                 const Header(),
                 Row(
@@ -166,25 +166,35 @@ class OngoingOrderPage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  order.outlets!.name.toString(),
-                                  style: GoogleFonts.inter(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  order.outlets!.address.toString(),
-                                  style: GoogleFonts.inter(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
+                            const SizedBox(width: 30),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    order.outlets!.name.toString(),
+                                    textAlign: TextAlign.end,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: GoogleFonts.inter(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    order.outlets!.address.toString(),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.end,
+                                    style: GoogleFonts.inter(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -240,7 +250,18 @@ class OngoingOrderPage extends StatelessWidget {
                           ],
                         ),
                       ],
-                    ))
+                    )),
+                    const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Order Date: ${DateFormat('EEE, d MMMM y, H:mm').format(order.orderTime!.toDate())}",
+                      style: GoogleFonts.inter(
+                          fontSize: 14, fontWeight: FontWeight.w600),
+                    ),
+                  ),
               ]),
             )
           ],

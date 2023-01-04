@@ -10,12 +10,13 @@ class HistoryPage extends StatelessWidget {
   HistoryPage({super.key});
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
   @override
   Widget build(BuildContext context) {
     final CollectionReference orders = firestore.collection('orders');
     final String? userID = FirebaseAuth.instance.currentUser?.uid;
-    final Query query = orders.where('user_id', isEqualTo: userID);
+    final Query query = orders
+        .where('user_id', isEqualTo: userID)
+        .orderBy('order_time', descending: true);
 
     return Scaffold(
       body: SafeArea(

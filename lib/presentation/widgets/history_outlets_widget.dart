@@ -48,9 +48,12 @@ class HistoryOutletsWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
+                            width: 160,
                             padding: const EdgeInsets.only(top: 10),
                             child: Text(order.outlets!.name.toString(),
-                                textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                                textAlign: TextAlign.start,
                                 style: const TextStyle(
                                     color: primaryColor, fontSize: 14)),
                           ),

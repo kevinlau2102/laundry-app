@@ -54,15 +54,20 @@ class _ProfilePageState extends State<ProfilePage> {
                 Positioned(
                     right: 0,
                     bottom: 0,
-                    child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.all(5),
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: accentColor),
-                        child: const Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        )))
+                    child: GestureDetector(
+                      onTap: () {
+                       context.goNamed("edit_profile");
+                      },
+                      child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.all(5),
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: accentColor),
+                          child: const Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                          )),
+                    ))
               ],
             ),
             FutureBuilder(
@@ -76,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Container(
                             padding: const EdgeInsets.symmetric(vertical: 5),
                             child: Text(
-                              (userEnt.name).toString(),
+                              ("${userEnt.firstName} ${userEnt.lastName}"),
                               style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.w600),
                             )),
@@ -262,11 +267,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginPage()),
-                              );
                             },
                             child: const Text(
                               "No, I'll stay",

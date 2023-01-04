@@ -62,7 +62,7 @@ class _ChangeAddressPageState extends State<ChangeAddressPage> {
                 Container(
                   height: 200,
                   margin: const EdgeInsets.only(top: 100),
-                  child: const GoogleMapsWidget(),
+                  child: const GoogleMapsWidget(latitude: -6.886199120964776, longitude: 107.58112896546257),
                 ),
                 const Header(),
                 Row(

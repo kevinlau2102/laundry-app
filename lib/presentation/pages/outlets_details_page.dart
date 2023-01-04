@@ -1,4 +1,10 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:laundry_app/bloc/outlets_bloc.dart';
 import 'package:laundry_app/colors.dart';
 import 'package:laundry_app/entities/outlets.dart';
 import 'package:laundry_app/presentation/pages/order_page.dart';
@@ -15,6 +21,15 @@ class OutletsDetailsPage extends StatefulWidget {
 
 class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
   bool isFavorite = false;
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late CollectionReference favorites = firestore.collection('favorites');
+
+  late String? userId = FirebaseAuth.instance.currentUser?.uid;
+  late Query query = favorites
+      .where('user_id', isEqualTo: userId)
+      .where('outlets.id', isEqualTo: widget.outlets.id);
+      
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,22 +40,48 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                isFavorite == false
-                    ? Icons.favorite_border_rounded
-                    : Icons.favorite_rounded,
-                size: 35,
-                color: primaryColor,
-                shadows: const <Shadow>[
-                  Shadow(color: Colors.black, blurRadius: 1.0)
-                ],
-              ),
-              tooltip: 'Favorite this outlet',
-              onPressed: () {
-                setState(() {
-                  isFavorite = !isFavorite;
-                });
+            StreamBuilder<QuerySnapshot>(
+              stream: query.snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!.size == 0) {
+                    return IconButton(
+                      icon: const Icon(
+                        Icons.favorite_border_rounded,
+                        size: 35,
+                        color: primaryColor,
+                        shadows: <Shadow>[
+                          Shadow(color: Colors.black, blurRadius: 1.0)
+                        ],
+                      ),
+                      tooltip: 'Favorite this outlet',
+                      onPressed: () async {
+                        var outlet = jsonEncode(widget.outlets.toJson());
+                        await favorites.doc("${widget.outlets.id.toString()}$userId").set({
+                          'outlets': jsonDecode(outlet),
+                          'user_id': userId
+                        });
+                      },
+                    );
+                  } else {
+                    return IconButton(
+                      icon: const Icon(
+          Icons.favorite_rounded,
+                        size: 35,
+                        color: primaryColor,
+                        shadows: <Shadow>[
+                          Shadow(color: Colors.black, blurRadius: 1.0)
+                        ],
+                      ),
+                      tooltip: 'Favorite this outlet',
+                      onPressed: () async {
+                        await favorites.doc("${widget.outlets.id.toString()}$userId").delete();
+                      },
+                    );
+                  }
+                } else {
+                  return const SizedBox();
+                }
               },
             ),
             const SizedBox(
@@ -87,12 +128,14 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              widget.outlets.name.toString(),
-                              style: const TextStyle(
-                                color: primaryColor,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                            Expanded(
+                              child: Text(
+                                widget.outlets.name.toString(),
+                                style: const TextStyle(
+                                  color: primaryColor,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             Wrap(
@@ -132,9 +175,11 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                             const SizedBox(
                               width: 5,
                             ),
-                            Text(
-                              widget.outlets.address.toString(),
-                              style: const TextStyle(fontSize: 14),
+                            Expanded(
+                              child: Text(
+                                widget.outlets.address.toString(),
+                                style: const TextStyle(fontSize: 14),
+                              ),
                             ),
                           ],
                         ),
@@ -157,7 +202,8 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                           height: 5,
                         ),
                         Row(
-                          children: widget.outlets.categories!.split(", ")
+                          children: widget.outlets.categories!
+                              .split(", ")
                               .map((e) => CategoryWidget(category: e))
                               .toList(),
                         )
@@ -180,7 +226,7 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          final call = Uri.parse('tel:+6289512345678');
+                          final call = Uri.parse('tel:${widget.outlets.phone}');
                           if (await canLaunchUrl(call)) {
                             launchUrl(call);
                           } else {
@@ -206,7 +252,7 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                       GestureDetector(
                         onTap: () async {
                           final sms = Uri.parse(
-                              'sms:+6289512345678?body=hello%20there');
+                              'sms:${widget.outlets.phone}?body=Saya%20ingin%20order%20laundry');
                           if (await canLaunchUrl(sms)) {
                             launchUrl(sms);
                           } else {
@@ -233,6 +279,9 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
+                        context
+                            .read<OutletsBloc>()
+                            .add(OutletsEvent.started(widget.outlets));
                         Navigator.push(
                           context,
                           MaterialPageRoute(

@@ -38,9 +38,11 @@ class OutletsWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
+                        width: 100,
                         padding: const EdgeInsets.only(top: 10),
                         child: Text(outlets.name.toString(),
-                            textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                             style: const TextStyle(
                                 color: primaryColor, fontSize: 12)),
                       ),

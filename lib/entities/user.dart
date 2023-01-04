@@ -1,5 +1,6 @@
 class User {
-  String? name;
+  String? firstName;
+  String? lastName;
   String? email;
   String? phone;
   String? address;
@@ -8,7 +9,8 @@ class User {
   String? postal;
 
   User({
-    this.name,
+    this.firstName,
+    this.lastName,
     this.address,
     this.city,
     this.email,
@@ -18,7 +20,8 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        name: json['name'],
+        firstName: json['first_name'],
+        lastName: json['last_name'],
         email: json['email'],
         phone: json['phone'],
         address: json['address'],

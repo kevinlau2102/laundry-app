@@ -3,9 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:laundry_app/bloc/outlets_bloc.dart';
 import 'package:laundry_app/bloc/pages_bloc.dart';
+import 'package:laundry_app/entities/outlets.dart';
 import 'package:laundry_app/presentation/pages/ads_page.dart';
 import 'package:laundry_app/presentation/pages/change_address_page.dart';
+import 'package:laundry_app/presentation/pages/edit_profile_page.dart';
 import 'package:laundry_app/presentation/pages/favorite_page.dart';
 import 'package:laundry_app/presentation/pages/history_page.dart';
 import 'package:laundry_app/presentation/pages/login_page.dart';
@@ -94,6 +97,13 @@ class MyApp extends StatelessWidget {
               return const ChangeAddressPage();
             },
           ),
+          GoRoute(
+            path: 'edit_profile',
+            name: 'edit_profile',
+            builder: (context, state) {
+              return const EditProfilePage();
+            },
+          ),
         ],
       ),
     ],
@@ -105,8 +115,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PagesBloc()..add(const PagesEvent.started(0)),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => PagesBloc()..add(const PagesEvent.started(0)),
+        ),
+        BlocProvider(
+          create: (context) => OutletsBloc()..add(OutletsEvent.started(Outlets())),
+        ),
+      ],
       // child: const MaterialApp(
       //   title: 'Flutter Demo',
       //   debugShowCheckedModeBanner: false,

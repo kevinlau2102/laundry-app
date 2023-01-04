@@ -43,19 +43,10 @@ class MyApp extends StatelessWidget {
               },
               routes: [
                 GoRoute(
-<<<<<<< Updated upstream
                   path: 'signup2',
                   name: 'signup2',
                   builder: (context, state) {
                     return const SignUpPage2();
-=======
-                  path: 'signup2/:uid',
-                  name: 'signup2',
-                  builder: (context, state) {
-                    return SignUpPage2(
-                      uid: state.params['uid']!,
-                    );
->>>>>>> Stashed changes
                   },
                 ),
               ],
@@ -86,7 +77,6 @@ class MyApp extends StatelessWidget {
             GoRoute(
               path: 'favorite',
               name: 'favorite',
-<<<<<<< Updated upstream
               builder: (context, state) {
                 return const FavoritePage();
               },
@@ -94,8 +84,6 @@ class MyApp extends StatelessWidget {
             GoRoute(
               path: 'history',
               name: 'history',
-=======
->>>>>>> Stashed changes
               builder: (context, state) {
                 return const FavoritePage();
               },
@@ -123,7 +111,6 @@ class MyApp extends StatelessWidget {
                 ),
               ],
             ),
-           
           ],
         ),
       ],

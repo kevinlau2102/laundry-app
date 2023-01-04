@@ -10,7 +10,7 @@ class OrderServices {
           outlets: Outlets(
               id: 1,
               name: "Laundry Bersih",
-              rating: 4.9,
+              // rating: 4.9,
               description: "Lorem Ipsum Dolor Sit Amet",
               imageUrl: "ads2.png",
               address: "Jl. Surya Sumantri No. 63",

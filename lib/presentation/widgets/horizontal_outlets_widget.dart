@@ -40,7 +40,7 @@ class HorizontalOutletsWidget extends StatelessWidget {
                         children: [
                           Container(
                             padding: const EdgeInsets.only(top: 10),
-                            child: Text(outlets.name,
+                            child: Text(outlets.name.toString(),
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                     color: primaryColor, fontSize: 12)),
@@ -80,7 +80,7 @@ class HorizontalOutletsWidget extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(0, 11, 10, 0),
                             child: Text(
-                              outlets.address,
+                              outlets.address.toString(),
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 fontSize: 10,
@@ -93,7 +93,7 @@ class HorizontalOutletsWidget extends StatelessWidget {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      child: Text((outlets.categories).split(", ")
+                      child: Text((outlets.categories!).split(", ")
                           .map((e) => e)
                           .toList()
                           .join(", "), style: const TextStyle(color: Colors.black87, fontSize: 10),),

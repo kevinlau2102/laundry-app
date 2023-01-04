@@ -88,7 +88,7 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              widget.outlets.name,
+                              widget.outlets.name.toString(),
                               style: const TextStyle(
                                 color: primaryColor,
                                 fontSize: 20,
@@ -133,7 +133,7 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                               width: 5,
                             ),
                             Text(
-                              widget.outlets.address,
+                              widget.outlets.address.toString(),
                               style: const TextStyle(fontSize: 14),
                             ),
                           ],
@@ -142,7 +142,7 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                           height: 20,
                         ),
                         Text(
-                          widget.outlets.description,
+                          widget.outlets.description.toString(),
                           style: const TextStyle(fontSize: 14),
                         ),
                         const SizedBox(height: 30),
@@ -157,8 +157,7 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                           height: 5,
                         ),
                         Row(
-                          children: widget.outlets.categories
-                              .split(", ")
+                          children: widget.outlets.categories!.split(", ")
                               .map((e) => CategoryWidget(category: e))
                               .toList(),
                         )

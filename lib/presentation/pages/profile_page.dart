@@ -96,13 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     );
                   } else {
-                    return Text(
-                      "..LOADING..",
-                      style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 13),
-                    );
+                    return const Center(child: CircularProgressIndicator(),);
                   }
                 })),
             const SizedBox(

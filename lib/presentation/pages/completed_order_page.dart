@@ -174,7 +174,7 @@ class CompletedOrderPage extends StatelessWidget {
                                     height: 5,
                                   ),
                                   Text(
-                                    order.outlets!.address,
+                                    order.outlets!.address.toString(),
                                     style: GoogleFonts.inter(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600),

@@ -39,7 +39,7 @@ class OutletsWidget extends StatelessWidget {
                     children: [
                       Container(
                         padding: const EdgeInsets.only(top: 10),
-                        child: Text(outlets.name,
+                        child: Text(outlets.name.toString(),
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 color: primaryColor, fontSize: 12)),
@@ -79,7 +79,7 @@ class OutletsWidget extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.fromLTRB(0, 11, 10, 0),
                         child: Text(
-                          outlets.address,
+                          outlets.address.toString(),
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 10,

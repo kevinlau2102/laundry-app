@@ -59,7 +59,7 @@ class _OrderPageState extends State<OrderPage> {
                         alignment: Alignment.topLeft,
                         padding: const EdgeInsets.only(top: 15),
                         child: Text(
-                          widget.outlets.name,
+                          widget.outlets.name.toString(),
                           style: GoogleFonts.inter(
                               color: Colors.white,
                               fontSize: 24,
@@ -69,7 +69,7 @@ class _OrderPageState extends State<OrderPage> {
                       Container(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          widget.outlets.address,
+                          widget.outlets.address.toString(),
                           style: GoogleFonts.inter(
                               color: Colors.white,
                               fontSize: 16,

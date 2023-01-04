@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:laundry_app/colors.dart';
 import 'package:laundry_app/entities/order.dart';
@@ -7,7 +8,10 @@ import 'package:laundry_app/presentation/pages/ongoing_order_page.dart';
 
 class HistoryOutletsWidget extends StatelessWidget {
   final Order order;
-  const HistoryOutletsWidget({super.key, required this.order});
+  HistoryOutletsWidget({super.key, required this.order});
+
+  final formatDate = DateFormat('d MMM y, H:mm');
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +49,10 @@ class HistoryOutletsWidget extends StatelessWidget {
                         children: [
                           Container(
                             padding: const EdgeInsets.only(top: 10),
-                            child: Text(order.outlets!.name,
+                            child: Text(order.outlets!.name.toString(),
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    color: primaryColor, fontSize: 12)),
+                                    color: primaryColor, fontSize: 14)),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 12),
@@ -101,7 +105,7 @@ class HistoryOutletsWidget extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                             child: Text(
-                              order.outlets!.address,
+                              order.outlets!.address.toString(),
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 fontSize: 10,
@@ -118,9 +122,9 @@ class HistoryOutletsWidget extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
-                        (order.orderTime.toString()),
+                        (formatDate.format(order.orderTime!.toDate())),
                         style: const TextStyle(
-                            color: Colors.black87, fontSize: 10),
+                            color: Colors.black87, fontSize: 12),
                       ),
                     ),
                   ]),

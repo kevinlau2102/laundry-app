@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
             path: 'history',
             name: 'history',
             builder: (context, state) {
-              return const HistoryPage();
+              return HistoryPage();
             },
           ),
           GoRoute(

@@ -170,7 +170,7 @@ class OngoingOrderPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  order.outlets!.name,
+                                  order.outlets!.name.toString(),
                                   style: GoogleFonts.inter(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600),
@@ -179,7 +179,7 @@ class OngoingOrderPage extends StatelessWidget {
                                   height: 5,
                                 ),
                                 Text(
-                                  order.outlets!.address,
+                                  order.outlets!.address.toString(),
                                   style: GoogleFonts.inter(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600),

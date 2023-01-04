@@ -87,31 +87,15 @@ class MyApp extends StatelessWidget {
               path: 'history',
               name: 'history',
               builder: (context, state) {
-                return const FavoritePage();
+                return const HistoryPage();
               },
             ),
             GoRoute(
-              path: 'profile',
-              name: 'profile',
+              path: 'change_address',
+              name: 'change_address',
               builder: (context, state) {
-                return const ProfilePage();
+                return const ChangeAddressPage();
               },
-              routes: [
-                GoRoute(
-                  path: 'history',
-                  name: 'history',
-                  builder: (context, state) {
-                    return const HistoryPage();
-                  },
-                ),
-                GoRoute(
-                  path: 'change_address',
-                  name: 'change_address',
-                  builder: (context, state) {
-                    return const ChangeAddressPage();
-                  },
-                ),
-              ],
             ),
           ],
         ),

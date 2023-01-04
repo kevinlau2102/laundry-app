@@ -70,6 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     usersCol.doc(FirebaseAuth.instance.currentUser?.uid).get(),
                 builder: ((context, snapshot) {
                   if (snapshot.hasData) {
+                    userEnt = user2.User.fromJson(snapshot.data!.data() as Map<String, dynamic>);
                     return Column(
                       children: [
                         Container(

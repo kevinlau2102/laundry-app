@@ -101,8 +101,8 @@ class MyApp extends StatelessWidget {
       ),
     ],
     initialLocation:
-        // FirebaseAuth.instance.currentUser == null ? '/login' : '/home',
-        '/login',
+        FirebaseAuth.instance.currentUser == null ? '/login' : '/home',
+    // '/login',
   );
 
   // This widget is the root of your application.

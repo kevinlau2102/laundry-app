@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -7,14 +9,14 @@ import 'package:laundry_app/presentation/pages/login_page.dart';
 import 'package:laundry_app/presentation/pages/pages.dart';
 
 class SignUpPage2 extends StatefulWidget {
-  const SignUpPage2({super.key});
+  final String? uid;
+  const SignUpPage2({super.key, this.uid});
 
   @override
   State<SignUpPage2> createState() => _SignUpPage2State();
 }
 
 class _SignUpPage2State extends State<SignUpPage2> {
-  bool _obscureText = true;
   String? selectedProvinsi;
   List<String> provinsi = [
     "Select Province",
@@ -53,6 +55,14 @@ class _SignUpPage2State extends State<SignUpPage2> {
     "Sumatera Selatan",
     "Sumatera Utara"
   ];
+  TextEditingController addressController = TextEditingController(text: "");
+  TextEditingController cityController = TextEditingController(text: "");
+  TextEditingController postalController = TextEditingController(text: "");
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late CollectionReference userCol = firestore.collection('user');
+  late final User? user;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,19 +145,21 @@ class _SignUpPage2State extends State<SignUpPage2> {
                         isExpanded: true,
                         hint: const Text("Select Province"),
                         items: provinsi
-                            .map((item) => DropdownMenuItem<String>(
-                                  enabled: item != "Select Province",
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: item == "Select Province"
-                                            ? Colors.black26
-                                            : Colors.black),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ))
+                            .map(
+                              (item) => DropdownMenuItem<String>(
+                                enabled: item != "Select Province",
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: item == "Select Province"
+                                          ? Colors.black26
+                                          : Colors.black),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            )
                             .toList(),
                         value: selectedProvinsi,
                         onChanged: (value) {
@@ -208,7 +220,13 @@ class _SignUpPage2State extends State<SignUpPage2> {
                   child: ElevatedButton(
                     onPressed: () {
                       // Navigator.of(context).popUntil((route) => route.isFirst);
-                      context.goNamed('home');
+                      // context.goNamed('home');
+                      userCol.doc(widget.uid).update({
+                        "address": (addressController.text.trim()),
+                        "city": (cityController.text.trim()),
+                        "postal": (postalController.text.trim()),
+                        "province": (selectedProvinsi.toString().trim()),
+                      }).then((value) => context.goNamed('login'));
                     },
                     style: ButtonStyle(
                         backgroundColor: const MaterialStatePropertyAll<Color>(
@@ -236,7 +254,7 @@ class _SignUpPage2State extends State<SignUpPage2> {
                       onPressed: () {
                         // Navigator.of(context)
                         //     .popUntil((route) => route.isFirst);
-                        context.goNamed('home');
+                        context.goNamed('login');
                       },
                       child: const Text("Skip for now",
                           style: TextStyle(

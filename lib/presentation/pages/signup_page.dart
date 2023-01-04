@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:laundry_app/colors.dart';
 import 'package:laundry_app/presentation/pages/login_page.dart';
 import 'package:laundry_app/presentation/pages/signup_page_2.dart';
 
@@ -16,6 +19,15 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _obscureText = true;
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passController = TextEditingController(text: "");
+  TextEditingController fNameController = TextEditingController(text: "");
+  TextEditingController lNameController = TextEditingController(text: "");
+  TextEditingController phoneController = TextEditingController(text: "");
+  String? name;
+  String temp = "Temp Data";
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late CollectionReference userCol = firestore.collection('user');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
               child: SizedBox(
                 height: 50,
                 child: TextFormField(
+                  controller: fNameController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0)),
@@ -67,6 +80,7 @@ class _SignUpPageState extends State<SignUpPage> {
               child: SizedBox(
                 height: 50,
                 child: TextFormField(
+                  controller: lNameController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0)),
@@ -133,6 +147,7 @@ class _SignUpPageState extends State<SignUpPage> {
               child: SizedBox(
                 height: 50,
                 child: TextFormField(
+                  controller: phoneController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -187,9 +202,26 @@ class _SignUpPageState extends State<SignUpPage> {
                           borderRadius: BorderRadius.circular(10.0),
                         ))),
                     onPressed: () async {
-                      await AuthServices.signUp(
-                              emailController.text, passController.text)
-                          .then((value) => context.goNamed('signup2'));
+                      name =
+                          ("${fNameController.text.toString().trim()} ${lNameController.text.toString().trim()}");
+                      try {
+                        final User? userEnt =
+                            (await _auth.createUserWithEmailAndPassword(
+                                    email: (emailController.text.trim()),
+                                    password: (passController.text.trim())))
+                                .user;
+                        if (userEnt != null) {
+                          createData(name!, emailController.text,
+                              phoneController.text, userEnt, temp);
+                        }
+                      } on FirebaseAuthException catch (e) {
+                        showNotif(context, e.message.toString());
+                        fNameController.text = "";
+                        lNameController.text = "";
+                        emailController.text = "";
+                        passController.text = "";
+                        phoneController.text = "";
+                      }
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(
@@ -214,5 +246,26 @@ class _SignUpPageState extends State<SignUpPage> {
         ],
       ),
     );
+  }
+
+  void showNotif(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+          backgroundColor: secondaryColor, content: Text(message.toString())),
+    );
+  }
+
+  void createData(
+      String name, String email, String phone, User? user, String tempData) {
+    userCol.doc(user?.uid).set({
+      "name": name.trim(),
+      "email": email.trim(),
+      "phone": phone.trim(),
+      "address": tempData,
+      "city": tempData,
+      "postal": tempData,
+      "province": tempData,
+    }).then((value) =>
+        context.goNamed('signup2', params: {'uid': (user?.uid).toString()}));
   }
 }

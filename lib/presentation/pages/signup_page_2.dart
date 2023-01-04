@@ -58,7 +58,6 @@ class _SignUpPage2State extends State<SignUpPage2> {
   TextEditingController addressController = TextEditingController(text: "");
   TextEditingController cityController = TextEditingController(text: "");
   TextEditingController postalController = TextEditingController(text: "");
-  static final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   late CollectionReference userCol = firestore.collection('user');
   late final User? user;
@@ -107,6 +106,7 @@ class _SignUpPage2State extends State<SignUpPage2> {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: TextFormField(
+                    controller: addressController,
                     maxLines: 4,
                     decoration: InputDecoration(
                         alignLabelWithHint: true,
@@ -125,6 +125,7 @@ class _SignUpPage2State extends State<SignUpPage2> {
                   child: SizedBox(
                     height: 50,
                     child: TextFormField(
+                      controller: cityController,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0)),
@@ -202,6 +203,7 @@ class _SignUpPage2State extends State<SignUpPage2> {
                   child: SizedBox(
                     height: 50,
                     child: TextFormField(
+                      controller: postalController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(

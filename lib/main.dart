@@ -8,14 +8,11 @@ import 'package:laundry_app/presentation/pages/ads_page.dart';
 import 'package:laundry_app/presentation/pages/change_address_page.dart';
 import 'package:laundry_app/presentation/pages/favorite_page.dart';
 import 'package:laundry_app/presentation/pages/history_page.dart';
-import 'package:laundry_app/presentation/pages/home_page.dart';
 import 'package:laundry_app/presentation/pages/login_page.dart';
 import 'package:laundry_app/presentation/pages/pages.dart';
-import 'package:laundry_app/presentation/pages/profile_page.dart';
 import 'package:laundry_app/presentation/pages/search_page.dart';
 import 'package:laundry_app/presentation/pages/signup_page.dart';
 import 'package:laundry_app/presentation/pages/signup_page_2.dart';
-import 'package:laundry_app/presentation/widgets/ads_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

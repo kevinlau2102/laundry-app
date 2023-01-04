@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:laundry_app/colors.dart';
 import 'package:laundry_app/entities/order.dart';
-import 'package:laundry_app/entities/outlets.dart';
 import 'package:laundry_app/presentation/pages/completed_order_page.dart';
 import 'package:laundry_app/presentation/pages/ongoing_order_page.dart';
 
@@ -16,7 +15,12 @@ class HistoryOutletsWidget extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => order.status == "Done" ? CompletedOrderPage(order: order,) : OngoingOrderPage(order: order)),
+          MaterialPageRoute(
+              builder: (context) => order.status == "Done"
+                  ? CompletedOrderPage(
+                      order: order,
+                    )
+                  : OngoingOrderPage(order: order)),
         );
       },
       child: Container(
@@ -63,7 +67,7 @@ class HistoryOutletsWidget extends StatelessWidget {
                     ),
                     order.status == "Done"
                         ? Container(
-                          height: 15,
+                            height: 15,
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             alignment: Alignment.topRight,
                             child: Wrap(
@@ -83,8 +87,8 @@ class HistoryOutletsWidget extends StatelessWidget {
                               ],
                             ))
                         : const SizedBox(
-                          height: 15,
-                        ),
+                            height: 15,
+                          ),
                     Row(
                       children: [
                         Container(
@@ -108,10 +112,11 @@ class HistoryOutletsWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 17,),
+                    const SizedBox(
+                      height: 17,
+                    ),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         (order.orderTime.toString()),
                         style: const TextStyle(

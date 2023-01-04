@@ -1,7 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:laundry_app/presentation/widgets/google_maps_widget.dart';
 import 'package:laundry_app/presentation/widgets/header.dart';
@@ -14,8 +12,7 @@ class ChangeAddressPage extends StatefulWidget {
 }
 
 class _ChangeAddressPageState extends State<ChangeAddressPage> {
-
-String? selectedProvinsi;
+  String? selectedProvinsi;
   List<String> provinsi = [
     "Select Province",
     "Aceh",
@@ -99,153 +96,153 @@ String? selectedProvinsi;
                 )
               ],
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: const Text(
-                    "Full Address:",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF52B2CF),
-                        fontSize: 16),
-                  ),
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: const Text(
+                "Full Address:",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF52B2CF),
+                    fontSize: 16),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: TextFormField(
+                maxLines: 4,
+                decoration: InputDecoration(
+                    alignLabelWithHint: true,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    labelText: 'Address',
+                    hintText: 'Address'),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: SizedBox(
+                height: 50,
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      labelText: 'City',
+                      hintText: 'City'),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: TextFormField(
-                    maxLines: 4,
-                    decoration: InputDecoration(
-                        alignLabelWithHint: true,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        labelText: 'Address',
-                        hintText: 'Address'),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: SizedBox(
-                    height: 50,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          labelText: 'City',
-                          hintText: 'City'),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: SizedBox(
-                    height: 50,
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton2(
-                        isExpanded: true,
-                        hint: const Text("Select Province"),
-                        items: provinsi
-                            .map((item) => DropdownMenuItem<String>(
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: SizedBox(
+                height: 50,
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2(
+                    isExpanded: true,
+                    hint: const Text("Select Province"),
+                    items: provinsi
+                        .map((item) => DropdownMenuItem<String>(
                               enabled: item != "Select Province",
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: item == "Select Province" ? Colors.black26 : Colors.black
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    
-                                  ),
-                                ))
-                            .toList(),
-                        value: selectedProvinsi,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedProvinsi = value as String;
-                          });
-                        },
-                        icon: const Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                        ),
-                        iconSize: 25,
-                        iconEnabledColor: Colors.black45,
-                        iconDisabledColor: Colors.grey,
-                        buttonPadding: const EdgeInsets.only(right: 10),
-                        buttonDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: Colors.black26,
-                          ),
-                        ),
-                        itemHeight: 40,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 12),
-                        dropdownMaxHeight: 200,
-                        dropdownDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        scrollbarRadius: const Radius.circular(40),
-                        scrollbarThickness: 6,
-                        scrollbarAlwaysShow: true,
+                              value: item,
+                              child: Text(
+                                item,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: item == "Select Province"
+                                        ? Colors.black26
+                                        : Colors.black),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ))
+                        .toList(),
+                    value: selectedProvinsi,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedProvinsi = value as String;
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                    ),
+                    iconSize: 25,
+                    iconEnabledColor: Colors.black45,
+                    iconDisabledColor: Colors.grey,
+                    buttonPadding: const EdgeInsets.only(right: 10),
+                    buttonDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Colors.black26,
                       ),
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: SizedBox(
-                    height: 50,
-                    child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          labelText: 'Postal Code',
-                          hintText: 'Postal Code'),
+                    itemHeight: 40,
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 12),
+                    dropdownMaxHeight: 200,
+                    dropdownDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
                     ),
+                    scrollbarRadius: const Radius.circular(40),
+                    scrollbarThickness: 6,
+                    scrollbarAlwaysShow: true,
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: SizedBox(
+                height: 50,
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      labelText: 'Postal Code',
+                      hintText: 'Postal Code'),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 100),
-                  width: 50,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    style: ButtonStyle(
-                        backgroundColor: const MaterialStatePropertyAll<Color>(
-                            Color(0xFFFFA928)),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ))),
-                    child: const Text(
-                      "Save Address",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 100),
+              width: 50,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                style: ButtonStyle(
+                    backgroundColor: const MaterialStatePropertyAll<Color>(
+                        Color(0xFFFFA928)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ))),
+                child: const Text(
+                  "Save Address",
+                  style: TextStyle(fontSize: 16),
                 ),
-                
+              ),
+            ),
           ],
         ),
       ),

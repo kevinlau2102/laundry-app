@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:laundry_app/presentation/widgets/horizontal_outlets_widget.dart';
-import 'package:laundry_app/presentation/widgets/outlets_widget.dart';
 import 'package:laundry_app/services/outlets_services.dart';
 
 import '../widgets/header.dart';

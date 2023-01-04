@@ -1,14 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:laundry_app/presentation/widgets/header.dart';
 import 'package:laundry_app/presentation/widgets/history_outlets_widget.dart';
-import 'package:laundry_app/presentation/widgets/horizontal_outlets_widget.dart';
 import 'package:laundry_app/services/order_services.dart';
-import 'package:laundry_app/services/outlets_services.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});

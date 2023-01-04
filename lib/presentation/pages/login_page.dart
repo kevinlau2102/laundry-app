@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:laundry_app/bloc/pages_bloc.dart';
-import 'package:laundry_app/presentation/pages/home_page.dart';
-import 'package:laundry_app/presentation/pages/pages.dart';
-import 'package:laundry_app/presentation/pages/signup_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laundry_app/services/auth_services.dart';
 

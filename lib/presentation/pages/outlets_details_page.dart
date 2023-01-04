@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:laundry_app/colors.dart';
 import 'package:laundry_app/entities/outlets.dart';
 import 'package:laundry_app/presentation/pages/order_page.dart';
@@ -159,7 +157,8 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                           height: 5,
                         ),
                         Row(
-                          children: widget.outlets.categories.split(", ")
+                          children: widget.outlets.categories
+                              .split(", ")
                               .map((e) => CategoryWidget(category: e))
                               .toList(),
                         )
@@ -207,7 +206,8 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          final sms = Uri.parse('sms:+6289512345678?body=hello%20there');
+                          final sms = Uri.parse(
+                              'sms:+6289512345678?body=hello%20there');
                           if (await canLaunchUrl(sms)) {
                             launchUrl(sms);
                           } else {
@@ -237,7 +237,8 @@ class _OutletsDetailsPageState extends State<OutletsDetailsPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => OrderPage(outlets:widget.outlets)),
+                              builder: (context) =>
+                                  OrderPage(outlets: widget.outlets)),
                         );
                       },
                       style: ButtonStyle(

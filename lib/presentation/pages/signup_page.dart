@@ -3,10 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:laundry_app/colors.dart';
-import 'package:laundry_app/presentation/pages/login_page.dart';
-import 'package:laundry_app/presentation/pages/signup_page_2.dart';
-
-import '../../services/auth_services.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});

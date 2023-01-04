@@ -21,10 +21,10 @@ class AuthServices {
       final User? user = (await _auth.createUserWithEmailAndPassword(
               email: email, password: password))
           .user;
-      print(user);
+      // print(user);
       return user;
     } on FirebaseAuthException catch (e) {
-      print(e.message.toString());
+      // print(e.message.toString());
       return null;
     }
   }
@@ -36,7 +36,7 @@ class AuthServices {
           .user;
       return user;
     } on FirebaseAuthException catch (e) {
-      print(e.message.toString());
+      // print(e.message.toString());
       return null;
     }
   }

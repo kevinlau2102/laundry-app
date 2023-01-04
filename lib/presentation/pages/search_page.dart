@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:laundry_app/colors.dart';
 import 'package:laundry_app/presentation/widgets/header.dart';
@@ -98,7 +96,7 @@ class _SearchPageState extends State<SearchPage> {
                     Container(
                       padding: const EdgeInsets.only(top: 10),
                       child: GridView.count(
-                        physics: const ScrollPhysics(),
+                          physics: const ScrollPhysics(),
                           mainAxisSpacing: 10,
                           crossAxisSpacing: 10,
                           shrinkWrap: true,
@@ -108,7 +106,6 @@ class _SearchPageState extends State<SearchPage> {
                               .map((e) => OutletsWidget(outlets: e))
                               .toList()),
                     ),
-
                     Container(
                       padding: const EdgeInsets.only(top: 15),
                       alignment: Alignment.centerLeft,
@@ -123,7 +120,7 @@ class _SearchPageState extends State<SearchPage> {
                     Container(
                       padding: const EdgeInsets.only(top: 10),
                       child: GridView.count(
-                        physics: const ScrollPhysics(),
+                          physics: const ScrollPhysics(),
                           mainAxisSpacing: 10,
                           crossAxisSpacing: 10,
                           shrinkWrap: true,
@@ -133,7 +130,9 @@ class _SearchPageState extends State<SearchPage> {
                               .map((e) => OutletsWidget(outlets: e))
                               .toList()),
                     ),
-                    const SizedBox(height: 20,)
+                    const SizedBox(
+                      height: 20,
+                    )
                   ],
                 ),
               ),

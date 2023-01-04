@@ -27,81 +27,83 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final GoRouter router = GoRouter(
-      routes: [
-        GoRoute(
-          path: '/login',
-          name: 'login',
-          builder: (context, state) {
-            return const LoginPage();
-          },
-          routes: [
-            GoRoute(
-              path: 'signup',
-              name: 'signup',
-              builder: (context, state) {
-                return const SignUpPage();
-              },
-              routes: [
-                GoRoute(
-                  path: 'signup2/:uid',
-                  name: 'signup2',
-                  builder: (context, state) {
-                    return SignUpPage2(
-                      uid: state.params['uid']!,
-                    );
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
-        GoRoute(
-          path: '/home',
-          name: 'home',
-          builder: (context, state) {
-            return Pages();
-          },
-          routes: [
-            GoRoute(
-              path: 'ads',
-              name: 'ads',
-              builder: (context, state) {
-                return const AdsPage();
-              },
-            ),
-            GoRoute(
-              path: 'search',
-              name: 'search',
-              builder: (context, state) {
-                return const SearchPage();
-              },
-            ),
-            GoRoute(
-              path: 'favorite',
-              name: 'favorite',
-              builder: (context, state) {
-                return const FavoritePage();
-              },
-            ),
-            GoRoute(
-              path: 'history',
-              name: 'history',
-              builder: (context, state) {
-                return const HistoryPage();
-              },
-            ),
-            GoRoute(
-              path: 'change_address',
-              name: 'change_address',
-              builder: (context, state) {
-                return const ChangeAddressPage();
-              },
-            ),
-          ],
-        ),
-      ],
-      initialLocation:
-          FirebaseAuth.instance.currentUser == null ? '/login' : '/home');
+    routes: [
+      GoRoute(
+        path: '/login',
+        name: 'login',
+        builder: (context, state) {
+          return const LoginPage();
+        },
+        routes: [
+          GoRoute(
+            path: 'signup',
+            name: 'signup',
+            builder: (context, state) {
+              return const SignUpPage();
+            },
+            routes: [
+              GoRoute(
+                path: 'signup2/:uid',
+                name: 'signup2',
+                builder: (context, state) {
+                  return SignUpPage2(
+                    uid: state.params['uid']!,
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+      GoRoute(
+        path: '/home',
+        name: 'home',
+        builder: (context, state) {
+          return Pages();
+        },
+        routes: [
+          GoRoute(
+            path: 'ads',
+            name: 'ads',
+            builder: (context, state) {
+              return const AdsPage();
+            },
+          ),
+          GoRoute(
+            path: 'search',
+            name: 'search',
+            builder: (context, state) {
+              return const SearchPage();
+            },
+          ),
+          GoRoute(
+            path: 'favorite',
+            name: 'favorite',
+            builder: (context, state) {
+              return const FavoritePage();
+            },
+          ),
+          GoRoute(
+            path: 'history',
+            name: 'history',
+            builder: (context, state) {
+              return const HistoryPage();
+            },
+          ),
+          GoRoute(
+            path: 'change_address',
+            name: 'change_address',
+            builder: (context, state) {
+              return const ChangeAddressPage();
+            },
+          ),
+        ],
+      ),
+    ],
+    initialLocation:
+        // FirebaseAuth.instance.currentUser == null ? '/login' : '/home',
+        '/login',
+  );
 
   // This widget is the root of your application.
   @override

@@ -1,14 +1,13 @@
 import 'dart:math';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:laundry_app/bloc/pages_bloc.dart';
 import 'package:laundry_app/colors.dart';
-import 'package:laundry_app/presentation/pages/favorite_page.dart';
-import 'package:laundry_app/presentation/pages/profile_page.dart';
-import 'package:laundry_app/presentation/pages/search_page.dart';
 import 'package:laundry_app/presentation/widgets/ads_widget.dart';
+import 'package:laundry_app/entities/user.dart' as user2;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,6 +17,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late user2.User userEnt;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late CollectionReference usersCol = firestore.collection("user");
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -51,13 +54,34 @@ class _HomePageState extends State<HomePage> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  Text(
-                                    'Jl. Babakan Jeruk No. 35 Surya...',
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 13),
-                                  )
+                                  FutureBuilder(
+                                      future: usersCol
+                                          .doc(FirebaseAuth
+                                              .instance.currentUser?.uid)
+                                          .get(),
+                                      builder: ((context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          userEnt = user2.User.fromJson(
+                                              snapshot.data!.data()
+                                                  as Map<String, dynamic>);
+                                          return Text(
+                                            (userEnt.address).toString(),
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.poppins(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 13),
+                                          );
+                                        } else {
+                                          return Text(
+                                            "..LOADING..",
+                                            style: GoogleFonts.poppins(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 13),
+                                          );
+                                        }
+                                      }))
                                 ],
                               )
                             ],

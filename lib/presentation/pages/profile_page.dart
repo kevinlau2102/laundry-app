@@ -1,13 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:laundry_app/colors.dart';
-import 'package:laundry_app/presentation/pages/change_address_page.dart';
-import 'package:laundry_app/presentation/pages/history_page.dart';
 import 'package:laundry_app/presentation/pages/login_page.dart';
 import 'package:laundry_app/services/auth_services.dart';
+import 'package:laundry_app/entities/user.dart' as user2;
 
 import '../widgets/header.dart';
 
@@ -19,6 +18,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late user2.User userEnt;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late CollectionReference usersCol = firestore.collection("user");
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -62,24 +65,45 @@ class _ProfilePageState extends State<ProfilePage> {
                         )))
               ],
             ),
-            Container(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: const Text(
-                  "John Doe",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                )),
-            Container(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: const Text(
-                  "+628-221-234-567",
-                  style: TextStyle(fontSize: 16),
-                )),
-            Container(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: const Text(
-                  "johndoe@gmail.com",
-                  style: TextStyle(fontSize: 16),
-                )),
+            FutureBuilder(
+                future:
+                    usersCol.doc(FirebaseAuth.instance.currentUser?.uid).get(),
+                builder: ((context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      children: [
+                        Container(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: Text(
+                              (userEnt.name).toString(),
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w600),
+                            )),
+                        Container(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: Text(
+                              (userEnt.phone).toString(),
+                              style: const TextStyle(fontSize: 16),
+                            )),
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: Text(
+                            (userEnt.email).toString(),
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Text(
+                      "..LOADING..",
+                      style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 13),
+                    );
+                  }
+                })),
             const SizedBox(
               height: 30,
             ),

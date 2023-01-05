@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:laundry_app/presentation/widgets/google_maps_widget.dart';
@@ -6,12 +8,17 @@ import 'package:laundry_app/presentation/widgets/header.dart';
 
 class ChangeAddressPage extends StatefulWidget {
   const ChangeAddressPage({super.key});
-
   @override
   State<ChangeAddressPage> createState() => _ChangeAddressPageState();
 }
 
 class _ChangeAddressPageState extends State<ChangeAddressPage> {
+  TextEditingController addressController = TextEditingController(text: "");
+  TextEditingController cityController = TextEditingController(text: "");
+  TextEditingController postalController = TextEditingController(text: "");
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late CollectionReference userCol = firestore.collection('user');
+  late final User? user;
   String? selectedProvinsi;
   List<String> provinsi = [
     "Select Province",
@@ -62,7 +69,9 @@ class _ChangeAddressPageState extends State<ChangeAddressPage> {
                 Container(
                   height: 200,
                   margin: const EdgeInsets.only(top: 100),
-                  child: const GoogleMapsWidget(latitude: -6.886199120964776, longitude: 107.58112896546257),
+                  child: const GoogleMapsWidget(
+                      latitude: -6.886199120964776,
+                      longitude: 107.58112896546257),
                 ),
                 const Header(),
                 Row(
@@ -117,6 +126,7 @@ class _ChangeAddressPageState extends State<ChangeAddressPage> {
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: TextFormField(
+                controller: addressController,
                 maxLines: 4,
                 decoration: InputDecoration(
                     alignLabelWithHint: true,
@@ -135,6 +145,7 @@ class _ChangeAddressPageState extends State<ChangeAddressPage> {
               child: SizedBox(
                 height: 50,
                 child: TextFormField(
+                  controller: cityController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0)),
@@ -210,6 +221,7 @@ class _ChangeAddressPageState extends State<ChangeAddressPage> {
               child: SizedBox(
                 height: 50,
                 child: TextFormField(
+                  controller: postalController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -228,6 +240,12 @@ class _ChangeAddressPageState extends State<ChangeAddressPage> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
+                  userCol.doc(FirebaseAuth.instance.currentUser?.uid).update({
+                    "address": (addressController.text.trim()),
+                    "city": (cityController.text.trim()),
+                    "postal": (postalController.text.trim()),
+                    "province": (selectedProvinsi.toString().trim()),
+                  });
                   Navigator.of(context).pop();
                 },
                 style: ButtonStyle(
